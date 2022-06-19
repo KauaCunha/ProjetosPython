@@ -1,0 +1,7 @@
+Importar as bibliotecas 
+Criar interface grafica
+	- Descricao 
+	- Tipo de Uninade
+	- Quantidade do tipo da Unidade
+Inteligencia da interface grafica
+	- Funções
