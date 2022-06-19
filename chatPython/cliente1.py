@@ -4,7 +4,6 @@ import tkinter
 
 
 def receive():
-    """Handles receiving of messages."""
     while True:
         try:
             msg = client_socket.recv(BUFSIZ).decode("utf8")
@@ -24,28 +23,25 @@ def receive():
                 msg_list.insert(tkinter.END, msg)
                 print(msg)
 
-        except OSError:  # Possibly client has left the chat.
-            break
+        except OSError: 
 
 
-def send_name(event=None):  # event is passed by binders.
-    """Handles sending of messages."""
+def send_name(event=None):
     msg = my_name.get()
     print(msg)
     client_socket.send(*bytes(msg, "utf8"))
 
 
-def send(event=None):  # event is passed by binders.
-    """Handles sending of messages."""
+def send(event=None): 
     if my_destinatario.get() != "" and my_msg.get() != "":
         msg = "@" + my_destinatario.get() + "@" + my_assunto.get() + "@" + my_msg.get()
-        my_destinatario.set("")  # Clears input field.
+        my_destinatario.set("")
         my_assunto.set("")
-        my_msg.set("")  # Clears input field.
+        my_msg.set("")  
         client_socket.send(bytes(msg, "utf8"))
 
 
-def sair(event=None):  # event is passed by binders.
+def sair(event=None):  
     """Encerrar a conexão"""
     msg = "{quit}"
     client_socket.send(bytes(msg, "utf8"))
@@ -55,7 +51,6 @@ def sair(event=None):  # event is passed by binders.
 
 
 def on_closing(event=None):
-    """This function is to be called when the window is closed."""
     my_msg.set("{quit}")
     send()
 
@@ -69,7 +64,7 @@ messages_frame = tkinter.Frame(janela)
 my_name = tkinter.StringVar()
 my_destinatario = tkinter.StringVar()
 my_assunto = tkinter.StringVar()
-my_msg = tkinter.StringVar()  # For the messages to be sent.
+my_msg = tkinter.StringVar()  
 
 scrollbar = tkinter.Scrollbar(messages_frame)
 
@@ -149,5 +144,5 @@ client_socket.connect(ADDR)
 
 receive_thread = Thread(target=receive)
 receive_thread.start()
-# Starts GUI execution.
+# Starta a GUI
 janela.mainloop()
